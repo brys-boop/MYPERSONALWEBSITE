@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brian Bactol | .NET Framework Developer</title>
+    <style>
+       
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Dark Blue Banner Top Header */
+        header {
+            background-color: #0c2340;
+            color: #ffffff;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+            font-weight: bold;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #cbd5e1;
+        }
+
+        
+
+        nav {
+            background-color: #1e40af;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        nav a:hover {
+            background-color: #1d4ed8;
+        }
+
+        
+        .main-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* Left panel wider than side panel */
+            gap: 25px;
+            flex: 1;
+        }
+
+        
+        .card {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #0c2340;
+            font-size: 1.6rem;
+            font-weight: 600;
+        }
+
+        .card p {
+            color: #475569;
+            line-height: 1.6;
+            font-size: 1.05rem;
+            margin: 0;
+        }
+
+        /
+        .skills-list {
+            margin: 0;
+            padding-left: 20px;
+            color: #475569;
+        }
+
+        .skills-list li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        
+        footer {
+            background-color: #0c2340;
+            color: #cbd5e1;
+            text-align: center;
+            padding: 25px 20px;
+            font-size: 0.95rem;
+            margin-top: auto;
+        }
+
+       
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    
+    <header>
+        <h1>Brian Bactol | .NET Framework Developer</h1>
+        <p>Grade 12 Cooper - Web Development Showcase</p>
+    </header>
+
+    
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <
+    <div class="main-container">
+        
+        
+        <div>
+            <div class="card">
+                <h3>About Me</h3>
+                <p>Welcome! I specialize in building enterprise applications using C# and the .NET Framework, paired with responsive HTML5/CSS3 frontends.</p>
+            </div>
+
+            <div class="card">
+                <h3>Featured Project</h3>
+                <p><strong>Student Management System:</strong> Built with ASP.NET Core and styled with CSS3 semantic layout.</p>
+            </div>
+        </div>
+
+       
+        <div>
+            <div class="card">
+                <h3>Core Competencies</h3>
+                <ul class="skills-list">
+                    <li>C# / .NET Core</li>
+                    <li>HTML5 Semantics</li>
+                    <li>CSS3 Flexbox</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    
+    <footer>
+        &copy; 2026 TechCooper Solutions | Teacher: Ma'am Jovy
+    </footer>
+
+</body>
+</html>
