@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Save Grades</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .form-container { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; margin-bottom: 20px; }
+    .field { display: flex; flex-direction: column; }
+    .field label { margin-bottom: 3px; font-weight: bold; font-size: 14px; }
+    input { padding: 6px; width: 180px; }
+    button { padding: 6px 14px; cursor: pointer; }
+    table, th, td { border: 1px solid black; border-collapse: collapse; padding: 5px 10px; }
+    #btnCancel { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Save Grades</h1>
+
+  <div class="form-container">
+    <div class="field">
+      <label>LRN:</label>
+      <input type="text" id="txtLRN" maxlength="11" placeholder="11 digits">
+    </div>
+    <div class="field">
+      <label>Name:</label>
+      <input type="text" id="txtName">
+    </div>
+    <div class="field">
+      <label>Subject:</label>
+      <input type="text" id="txtSubject">
+    </div>
+    <div class="field">
+      <label>Grade:</label>
+      <input type="text" id="txtGrade" placeholder="0-100">
+    </div>
+    <button id="btnSave">Save</button>
+    <button id="btnCancel">Cancel Edit</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>LRN</th>
+        <th>Name</th>
+        <th>Subject</th>
+        <th>Grade</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+
+<script>
+  var txtLRN = document.getElementById("txtLRN");
+  var txtName = document.getElementById("txtName");
+  var txtSubject = document.getElementById("txtSubject");
+  var txtGrade = document.getElementById("txtGrade");
+  var btnSave = document.getElementById("btnSave");
+  var btnCancel = document.getElementById("btnCancel");
+  var tableBody = document.getElementById("tableBody");
+
+  var grades = JSON.parse(localStorage.getItem("grades")) || [];
+  var editIndex = -1;
+
+  function saveToStorage() {
+    localStorage.setItem("grades", JSON.stringify(grades));
+  }
+
+  function renderTable() {
+    tableBody.innerHTML = "";
+    grades.forEach(function(item, index) {
+      var row = tableBody.insertRow();
+      row.insertCell(0).textContent = item.lrn;
+      row.insertCell(1).textContent = item.name;
+      row.insertCell(2).textContent = item.subject;
+      row.insertCell(3).textContent = item.grade;
+
+      var actionCell = row.insertCell(4);
+      actionCell.innerHTML = '<button onclick="editGrade(' + index + ')">Edit</button>';
+    });
+  }
+
+  function clearForm() {
+    txtLRN.value = "";
+    txtName.value = "";
+    txtSubject.value = "";
+    txtGrade.value = "";
+    editIndex = -1;
+    btnSave.textContent = "Save";
+    btnCancel.style.display = "none";
+    txtLRN.focus();
+  }
+
+  btnSave.onclick = function() {
+    var lrnValue = txtLRN.value.trim();
+    var nameValue = txtName.value.trim();
+    var subjectValue = txtSubject.value.trim();
+    var gradeValue = txtGrade.value.trim();
+
+    if (lrnValue == "" || nameValue == "" || subjectValue == "" || gradeValue == "") {
+      alert("Please fill up all fields!");
+      return;
+    }
+    if (!/^\d{11}$/.test(lrnValue)) {
+      alert("LRN must be exactly 11 numbers!");
+      return;
+    }
+    if (isNaN(gradeValue) || gradeValue < 0 || gradeValue > 100) {
+      alert("Grade must be a number from 0 to 100!");
+      return;
+    }
+
+    var data = { lrn: lrnValue, name: nameValue, subject: subjectValue, grade: gradeValue };
+
+    if (editIndex === -1) {
+      grades.push(data);
+    } else {
+      grades[editIndex] = data;
+      alert("Updated successfully!");
+    }
+
+    saveToStorage();
+    renderTable();
+    clearForm();
+  };
+
+  window.editGrade = function(index) {
+    var item = grades[index];
+    txtLRN.value = item.lrn;
+    txtName.value = item.name;
+    txtSubject.value = item.subject;
+    txtGrade.value = item.grade;
+    editIndex = index;
+    btnSave.textContent = "Update";
+    btnCancel.style.display = "inline-block";
+    txtLRN.focus();
+  };
+
+  btnCancel.onclick = function() {
+    clearForm();
+  };
+
+  renderTable();
+</script>
+</body>
+</html>
