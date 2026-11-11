@@ -11,10 +11,12 @@
     button { padding: 6px 14px; cursor: pointer; }
     table, th, td { border: 1px solid black; border-collapse: collapse; padding: 5px 10px; }
     #btnCancel { display: none; }
+    #status { font-size: 13px; margin-bottom: 10px; }
   </style>
 </head>
 <body>
   <h1>Save Grades</h1>
+  <div id="status"></div>
 
   <div class="form-container">
     <div class="field">
@@ -58,12 +60,19 @@
   var btnSave = document.getElementById("btnSave");
   var btnCancel = document.getElementById("btnCancel");
   var tableBody = document.getElementById("tableBody");
+  var status = document.getElementById("status");
 
-  var grades = JSON.parse(localStorage.getItem("grades")) || [];
+  var grades = [];
+  try {
+    grades = JSON.parse(localStorage.getItem("grades")) || [];
+  } catch(e) {
+    grades = [];
+  }
   var editIndex = -1;
 
   function saveToStorage() {
     localStorage.setItem("grades", JSON.stringify(grades));
+    status.textContent = "Saved in Local Storage: " + grades.length + " record(s) | Key: grades";
   }
 
   function renderTable() {
@@ -74,10 +83,14 @@
       row.insertCell(1).textContent = item.name;
       row.insertCell(2).textContent = item.subject;
       row.insertCell(3).textContent = item.grade;
-
       var actionCell = row.insertCell(4);
       actionCell.innerHTML = '<button onclick="editGrade(' + index + ')">Edit</button>';
     });
+    if (grades.length > 0) {
+      status.textContent = "Loaded from Local Storage: " + grades.length + " record(s) | Key: grades";
+    } else {
+      status.textContent = "Local Storage is empty. Mag-save ka muna.";
+    }
   }
 
   function clearForm() {
